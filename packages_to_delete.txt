@@ -1,0 +1,12 @@
+unattended-upgrades
+multipathd
+ModemManager
+tuned
+audit
+rsyslog
+firewall-config
+firewalld
+firewalld-filesystem
+python-firewall
+kexec-tools
+net-snmp

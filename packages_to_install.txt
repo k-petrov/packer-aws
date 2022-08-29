@@ -1,0 +1,17 @@
+bind-utils
+dstat
+lsof
+nano
+ncdu
+net-tools
+pv
+rsync
+screen
+sysstat
+telnet
+vim
+zstd
+wget
+htop
+wazuh-agent
+telegraf
