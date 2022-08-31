@@ -1,0 +1,18 @@
+[Unit]
+Requires=network.target remote-fs.target
+After=default.target network.target remote-fs.target zookeeper.service
+
+[Service]
+Type=simple
+User=kafka
+ExecStart=/bin/sh -c '/var/lib/kafka/bin/kafka-server-start.sh /var/lib/kafka/config/server.properties >> /var/lib/kafka/kafka.log 2>&1'
+ExecStop=/var/lib/kafka/bin/kafka-server-stop.sh
+Environment="KAFKA_OPTS=-javaagent:/opt/jolokia/jolokia-jvm-1.6.2-agent.jar=port=8778,host=0.0.0.0"
+Environment="JMX_PORT=9999"
+Environment="KAFKA_HEAP_OPTS=-Xmx1G -Xms1G"
+LimitNOFILE=65536
+LimitNPROC=65536
+Restart=on-abnormalerb
+
+[Install]
+WantedBy=multi-user.target

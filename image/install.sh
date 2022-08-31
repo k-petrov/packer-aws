@@ -1,8 +1,10 @@
 #!/bin/bash
 
 echo "# Enable EPEL"
-amazon-linux-extras install epel -y
+sudo amazon-linux-extras install epel -y
 
+echo "# Install ansible"
+sudo amazon-linux-extras install ansible2 -y
 
 echo "# Add wazuh gpg key and repo"
 rpm --import https://packages.wazuh.com/key/GPG-KEY-WAZUH
@@ -20,11 +22,11 @@ echo "# Add telegraf gpg key"
 cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
 [influxdb]
 name = InfluxDB Repository - RHEL \$releasever
-baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
+baseurl = https://repos.influxdata.com/rhel/7/amd64/stable/
 enabled = 1
 gpgcheck = 1
 gpgkey = https://repos.influxdata.com/influxdb.key
 EOF
 
 echo "# Install packages"
-for i in $(cat packer-aws/packages_to_install.txt); do yum install $i -y ; done
+for i in $(cat /tmp/packages_to_install.txt); do sudo yum install $i -y ; done
