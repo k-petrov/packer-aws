@@ -1,0 +1,63 @@
+[[inputs.jolokia2_agent]]
+  name_prefix = "kafka_"
+
+  urls = ["http://127.0.0.1:8778/jolokia"]
+
+  [[inputs.jolokia2_agent.metric]]
+    name         = "jvm_runtime"
+    mbean        = "java.lang:type=Runtime"
+    paths        = ["Uptime"]
+  [[inputs.jolokia2_agent.metric]]
+    name         = "jvm_bytes_in"
+    mbean        = "kafka.server:name=BytesInPerSec,type=BrokerTopicMetrics"
+    paths        = ["OneMinuteRate"]
+  [[inputs.jolokia2_agent.metric]]
+    name         = "jvm_bytes_out"
+    mbean        = "kafka.server:name=BytesOutPerSec,type=BrokerTopicMetrics"
+    paths        = ["OneMinuteRate"]
+  [[inputs.jolokia2_agent.metric]]
+    name         = "offline_partitions"
+    mbean        = "kafka.controller:type=KafkaController,name=OfflinePartitionsCount"
+  [[inputs.jolokia2_agent.metric]]
+    name         = "underreplicated_partitions"
+    mbean        = "kafka.server:type=ReplicaManager,name=UnderReplicatedPartitions"
+  [[inputs.jolokia2_agent.metric]]
+    name         = "partitions"
+    mbean        = "kafka.server:type=ReplicaManager,name=PartitionCount"
+  [[inputs.jolokia2_agent.metric]]
+    name         = "jvm_memory"
+    mbean        = "java.lang:type=Memory"
+    paths        = ["HeapMemoryUsage", "NonHeapMemoryUsage", "ObjectPendingFinalizationCount"]
+  [[inputs.jolokia2_agent.metric]]
+    name         = "jvm_garbage_collector"
+    mbean        = "java.lang:name=*,type=GarbageCollector"
+    paths        = ["CollectionTime", "CollectionCount"]
+    tag_keys     = ["name"]
+  [[inputs.jolokia2_agent.metric]]
+    name         = "rps_produce"
+    mbean        = "kafka.server:type=BrokerTopicMetrics,name=TotalProduceRequestsPerSec"
+    paths        = ["OneMinuteRate"]
+  [[inputs.jolokia2_agent.metric]]
+    name         = "rps_fetch"
+    mbean        = "kafka.server:type=BrokerTopicMetrics,name=TotalFetchRequestsPerSec"
+    paths        = ["OneMinuteRate"]
+  [[inputs.jolokia2_agent.metric]]
+    name         = "rps_fail_produce"
+    mbean        = "kafka.server:type=BrokerTopicMetrics,name=FailedProduceRequestsPerSec"
+    paths        = ["OneMinuteRate"]
+  [[inputs.jolokia2_agent.metric]]
+    name         = "rps_fail_fetch"
+    mbean        = "kafka.server:type=BrokerTopicMetrics,name=FailedFetchRequestsPerSec"
+    paths        = ["OneMinuteRate"]
+  [[inputs.jolokia2_agent.metric]]
+    name         = "leaders"
+    mbean        = "kafka.server:type=ReplicaManager,name=LeaderCount"
+  [[inputs.jolokia2_agent.metric]]
+    name         = "request_handler_idle"
+    mbean        = "kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent"
+  [[inputs.jolokia2_agent.metric]]
+    name         = "network_processor_idle"
+    mbean        = "kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent"
+  [[inputs.jolokia2_agent.metric]]
+    name         = "request_queue"
+    mbean        = "kafka.network:type=RequestChannel,name=RequestQueueSize"
